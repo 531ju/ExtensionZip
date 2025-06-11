@@ -1,4 +1,4 @@
-package com.kjj.extensionzip.base
+package com.kjj.extensionzip.base.screen
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
