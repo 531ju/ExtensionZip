@@ -1,4 +1,4 @@
-package com.kjj.extensionzip.ext
+package com.kjj.extensionzip.ext.view
 
 import android.view.View
 import android.view.ViewGroup

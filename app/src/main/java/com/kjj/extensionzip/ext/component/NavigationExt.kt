@@ -1,4 +1,4 @@
-package com.kjj.extensionzip.ext
+package com.kjj.extensionzip.ext.component
 
 import androidx.navigation.NavController
 

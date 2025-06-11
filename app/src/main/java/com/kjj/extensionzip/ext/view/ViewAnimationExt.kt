@@ -1,4 +1,4 @@
-package com.kjj.extensionzip.ext
+package com.kjj.extensionzip.ext.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

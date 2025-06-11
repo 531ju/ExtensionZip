@@ -1,4 +1,4 @@
-package com.kjj.extensionzip.ext
+package com.kjj.extensionzip.ext.component
 
 import android.app.Activity
 import android.content.res.Configuration

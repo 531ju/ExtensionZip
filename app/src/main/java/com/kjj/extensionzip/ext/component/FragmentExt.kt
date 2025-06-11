@@ -1,8 +1,6 @@
-package com.kjj.extensionzip.ext
+package com.kjj.extensionzip.ext.component
 
 import android.content.res.Configuration
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 
