@@ -14,6 +14,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.kjj.extensionzip.ext.view.showSnackBar
 
 abstract class BaseFragment<B: ViewBinding>(
     @LayoutRes val layoutId: Int
@@ -53,9 +54,8 @@ abstract class BaseFragment<B: ViewBinding>(
         _binding = null
     }
 
-
     fun showMessage(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+        requireView().showSnackBar(msg)
     }
 
     open fun setBackPressedEnabled(

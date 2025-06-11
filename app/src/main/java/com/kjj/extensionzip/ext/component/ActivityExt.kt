@@ -1,10 +1,14 @@
 package com.kjj.extensionzip.ext.component
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.view.WindowInsets
+import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import com.google.android.material.color.MaterialColors
 
 fun Activity.setStatusBarColor(@ColorInt color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
@@ -41,3 +45,16 @@ fun Activity.setNavigationBarColor(@ColorInt color: Int) {
 }
 
 fun Activity.isDarkMode() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
+fun Activity.getMaterialColor(
+    @AttrRes color: Int
+) = MaterialColors.getColor(this, color, "")
+
+@SuppressLint("InternalInsetResource")
+fun Context.getNavigationBarHeight(): Int {
+    val resources = this.resources
+    val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    return if (resourceId > 0) {
+        resources.getDimensionPixelSize(resourceId)
+    } else 0
+}
