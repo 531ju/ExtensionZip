@@ -2,7 +2,9 @@ package com.kjj.extensionzip.ext
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Resources
+import androidx.core.content.ContextCompat
 
 fun Context.getScreenWidthDP(): Float {
     val displayMetrics = Resources.getSystem().displayMetrics
@@ -31,4 +33,9 @@ fun isAppInForeground(context: Context): Boolean {
         }
     }
     return false
+}
+
+fun Context.hasPermission(permissionType: String): Boolean {
+    return ContextCompat.checkSelfPermission(this, permissionType) ==
+            PackageManager.PERMISSION_GRANTED
 }

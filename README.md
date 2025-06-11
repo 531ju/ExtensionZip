@@ -12,10 +12,12 @@
   - NavigationExt
   - SnackbarExt
 - value
+  - ByteArrayExt
   - FloatExt
   - IntExt
 - view
   - ViewAnimationExt
   - ViewExt
+- BleExt
 - ContextExt
 - LifecycleExt
