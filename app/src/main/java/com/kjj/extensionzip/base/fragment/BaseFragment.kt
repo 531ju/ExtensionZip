@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.kjj.extensionzip.ext.view.showSnackBar
 
-abstract class BaseFragment<B: ViewBinding>(
-    @LayoutRes val layoutId: Int
-): Fragment() {
+abstract class BaseFragment<B: ViewBinding>(): Fragment() {
 
     private var _binding: B? = null
     val binding: B get() = _binding?: throw NullPointerException("Binding instance must be not null.")
