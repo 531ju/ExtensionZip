@@ -72,4 +72,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // paging
+    implementation(libs.androidX.paging)
 }
