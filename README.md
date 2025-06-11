@@ -10,6 +10,7 @@
   - ActivityExt
   - FragmentExt
   - NavigationExt
+  - SnackbarExt
 - value
   - FloatExt
   - IntExt
