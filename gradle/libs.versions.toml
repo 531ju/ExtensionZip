@@ -14,6 +14,12 @@ activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 navigationCompose = "2.8.9"
 
+appcompatVersion = "1.6.1"
+fragmentVersion = "1.6.1"
+activityVersion = "1.8.0"
+constraintlayoutVersion = "2.1.4"
+materialVersion = "1.10.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -36,10 +42,27 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
+androidX-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+androidX-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentVersion" }
+androidX-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityVersion" }
+androidX-constraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }
+androidX-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleRuntimeKtx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
+
+[bundles]
+androids = [
+    "androidX-appcompat",
+    "androidX-fragment",
+    "androidX-activity",
+    "androidX-constraintLayout",
+    "androidX-lifecycle-livedata",
+    "material"
+]
 
