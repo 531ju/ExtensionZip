@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogAnimationSlideUpDown" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
+    </style>
+
+    <style name="DialogAnimationSlideDown" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
+    </style>
+
+    <style name="DialogAnimationSlideInOut" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out</item>
+    </style>
+    <style name="DialogAnimationSlideOut" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out</item>
+    </style>
+
+    <style name="AlertDialogAnimation" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_fade_out</item>
+    </style>
+</resources>
