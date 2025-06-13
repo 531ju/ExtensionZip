@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "ExtensionZip"
 include(":app")
- 
+include(":base")
+include(":extension")
+include(":base-compose")
