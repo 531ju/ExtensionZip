@@ -33,6 +33,16 @@ Android 개발에서 반복해서 사용하는 Kotlin 확장 함수와 공통 UI
 - **View**: `ViewAnimationExtension`, `ViewExtension`
 - **기타**: `BleExtension`, `ContextExtension`, `LifecycleExtension`
 
+## extension 사용법 문서
+
+각 함수의 사용 이유, 매개변수·반환값, Kotlin 예제와 현재 구현의 주의사항은 [extension 문서 목록](docs/extension/README.md)에서 확인할 수 있습니다.
+
+- [값 변환: dp·시간·색상·ByteArray](docs/extension/values.md)
+- [Context·권한·Lifecycle](docs/extension/context-lifecycle.md)
+- [Activity·Fragment·Navigation](docs/extension/components.md)
+- [View·Snackbar·애니메이션](docs/extension/views.md)
+- [Bluetooth·GATT](docs/extension/bluetooth.md)
+
 ## 개발 환경
 
 저장소의 Gradle 설정 기준입니다.
