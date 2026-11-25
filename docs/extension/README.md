@@ -20,7 +20,7 @@ dependencies {
 
 | 문서 | 용도 |
 | --- | --- |
-| [값 변환](values.md) | dp → px, 분 → 시·분, 색상 알파, ByteArray 로그 |
+| [값 변환](values.md) | dp → px, 분 → 시·분, 색상 알파, ByteArray 로그 및 String.parseByteHexLog 역변환 |
 | [Context와 Lifecycle](context-lifecycle.md) | 권한·화면·프로세스 상태, 수명주기 기반 코루틴 |
 | [Activity·Fragment·Navigation](components.md) | 시스템 바 색상, 다크 모드, Material 색상, Insets, 백스택 |
 | [View와 Snackbar·애니메이션](views.md) | 클릭 간격 제한, 입력 뷰 검색, 메시지, 펼침·접힘·색상 |
