@@ -20,6 +20,7 @@ dependencies {
 
 | 문서 | 용도 |
 | --- | --- |
+| [컬렉션 중복 키 검사](collections.md) | Iterable에서 중복 식별자 추출 |
 | [값 변환](values.md) | dp → px, 분 → 시·분, 색상 알파, ByteArray 로그 및 String.parseByteHexLog 역변환 |
 | [Context와 Lifecycle](context-lifecycle.md) | 권한·화면·프로세스 상태, 수명주기 기반 코루틴 |
 | [Activity·Fragment·Navigation](components.md) | 시스템 바 색상, 다크 모드, Material 색상, Insets, 백스택 |
