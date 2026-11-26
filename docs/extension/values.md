@@ -15,6 +15,8 @@
 | `ByteArray.convertBytesToHex()` | 바이트 배열 → `String` | 소문자 hex, 바이트마다 `0x` 접두사, 구분 공백 없음 |
 | `ByteArray.convertToBytesToString()` | 바이트 배열 → `String` | 바이트마다 `0x`와 뒤쪽 공백. 마지막에도 공백이 붙음 |
 
+| `ByteArray.crc32()` | 바이트 배열 → unsigned `Long` | CRC-32/ISO-HDLC 체크섬 검증 |
+
 ## 사용법
 
 ```kotlin
@@ -57,3 +59,25 @@ check("0x01 0x0a ".parseByteHexLog().contentEquals(packet))
 ```
 
 위 두 입력과 결과를 검증하는 단위 테스트를 포함합니다. 현재 오프라인 빌드에서는 AGP 8.7.2 플러그인 캐시가 없어 테스트 실행은 검증하지 못했습니다. 모든 256개 바이트에 대해 기존 두 출력 함수와의 왕복 테스트도 포함합니다.
+
+## ByteArray.crc32(): 캡처 패킷·픽스처 체크섬 검증
+
+저장한 패킷이나 테스트 픽스처가 기대한 바이트인지 CRC-32/ISO-HDLC 체크섬으로 비교할 때 사용합니다. 모든 BLE 프로토콜에 통용되는 체크섬을 의미하지 않습니다.
+
+- 시그니처: `fun ByteArray.crc32(): Long`
+- 사전 조건: `implementation(project(":extension"))` 및 아래 import. 모듈은 Kotlin 2/JVM 11, 최소 Android SDK 30을 사용합니다. 함수 자체는 플랫폼 `java.util.zip.CRC32`만 사용하며 Android 권한이 필요하지 않습니다.
+- 매개변수: 별도 인자 없이 수신 `ByteArray` 전체를 계산합니다.
+- 반환값: unsigned CRC를 담은 `Long` (`0L..0xFFFFFFFFL`). 빈 배열은 `0L`입니다.
+- 입력을 변경하지 않으며 호출마다 새 CRC32 인스턴스를 사용하여 호출 간 상태를 공유하지 않습니다.
+
+```kotlin
+import com.kjj.extension.value.crc32
+import com.kjj.extension.value.parseByteHexLog
+
+check("123456789".toByteArray(Charsets.US_ASCII).crc32() == 0xCBF43926L)
+val packet = "0x68 0x65 0x6c 0x6c 0x6f ".parseByteHexLog()
+check(packet.crc32() == 0x3610A686L)
+check(byteArrayOf().crc32() == 0L)
+```
+
+예제 입력과 기대값은 `ByteArrayExtensionTest`에 포함합니다. 테스트 실행 여부는 PR 검증 결과를 참고하세요. CRC32C나 암호학적 해시가 아니며 인증·보안 검증용이 아닙니다. 스트리밍/증분 계산 또는 사용자 지정 다항식은 지원하지 않습니다. 계산 중 다른 스레드에서 입력 배열을 변경하는 사용은 지원하지 않습니다. 기존 로그 직렬화 출력은 변경하지 않습니다.

@@ -1,5 +1,7 @@
 package com.kjj.extension.value
 
+import java.util.zip.CRC32
+
 fun ByteArray.convertBytesToHex(): String {
     return StringBuilder().let {
         for (byte in this) {
@@ -17,3 +19,6 @@ fun ByteArray.convertToBytesToString() : String {
         it
     }.toString()
 }
+
+/** Returns the unsigned CRC-32/ISO-HDLC checksum without modifying this array. */
+fun ByteArray.crc32(): Long = CRC32().apply { update(this@crc32) }.value
