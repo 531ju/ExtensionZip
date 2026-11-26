@@ -14,7 +14,6 @@
 | `Int.setAlpha(alpha)` | 색상 Int + 0~1 비율 → 새 색상 Int | 비율을 소수 둘째 자리로 반올림 후 알파로 변환. 기존 알파를 대체하며 범위를 자동 보정하지 않음 |
 | `ByteArray.convertBytesToHex()` | 바이트 배열 → `String` | 소문자 hex, 바이트마다 `0x` 접두사, 구분 공백 없음 |
 | `ByteArray.convertToBytesToString()` | 바이트 배열 → `String` | 바이트마다 `0x`와 뒤쪽 공백. 마지막에도 공백이 붙음 |
-
 | `ByteArray.crc32()` | 바이트 배열 → unsigned `Long` | CRC-32/ISO-HDLC 체크섬 검증 |
 
 ## 사용법
