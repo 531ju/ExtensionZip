@@ -35,7 +35,7 @@ val compact = packet.convertBytesToHex()       // "0x010x0a"
 val spaced = packet.convertToBytesToString()  // "0x01 0x0a "
 ```
 
-px 값은 기기 밀도에 따라 달라집니다. `setAlpha`는 0~1 범위로 호출하세요. 범위를 벗어나면 최종 알파 검증에서 예외가 발생할 수 있습니다. ByteArray 함수는 로그 표시용이며 역변환은 아래의 엄격한 로그 파서를 사용합니다. 빈 배열은 빈 문자열을 반환합니다.
+px 값은 기기 밀도에 따라 달라집니다. `setAlpha`는 0~1 범위로 호출하세요. 범위를 벗어나면 최종 알파 검증에서 예외가 발생할 수 있습니다. 기존 ByteArray 출력 함수는 로그 표시용이며 역변환은 아래의 엄격한 로그 파서를 사용합니다. 빈 배열은 빈 문자열을 반환합니다.
 
 ## String.parseByteHexLog(): 로그를 바이트로 복원
 
@@ -57,3 +57,29 @@ check("0x01 0x0a ".parseByteHexLog().contentEquals(packet))
 ```
 
 위 두 입력과 결과를 검증하는 단위 테스트를 포함합니다. 현재 오프라인 빌드에서는 AGP 8.7.2 플러그인 캐시가 없어 테스트 실행은 검증하지 못했습니다. 모든 256개 바이트에 대해 기존 두 출력 함수와의 왕복 테스트도 포함합니다.
+
+
+## ByteArray.readUInt16(): unsigned 16비트 필드 읽기
+
+BLE 패킷의 길이·측정값·순번이나 재현 로그의 2바이트 필드를 읽을 때 사용합니다. 반복되는 부호 제거와 엔디언 처리를 한곳에 모으며 기존 로그 출력/파싱 동작은 바꾸지 않습니다.
+
+- 시그니처: `fun ByteArray.readUInt16(offset: Int = 0, byteOrder: java.nio.ByteOrder = java.nio.ByteOrder.LITTLE_ENDIAN): Int`
+- 사전 조건: 저장소 내부 `implementation(project(":extension"))` 의존성과 아래 import. 모듈은 Kotlin 2/JVM 11, 최소 Android SDK 30이며 함수 자체는 플랫폼 `java.nio`만 사용하고 Android 런타임·권한·추가 의존성이 필요 없습니다.
+- `offset`: 읽기 시작 인덱스(기본 0). 유효 범위는 `0..size-2`입니다.
+- `byteOrder`: 기본 little-endian. 프로토콜이 big-endian이면 명시합니다.
+- 반환값: 두 바이트를 unsigned로 해석한 `Int` (`0..65535`). 원본 배열은 변경하지 않습니다.
+- 예외/제한: 빈 배열·1바이트 배열, 음수 또는 마지막 두 바이트를 확보할 수 없는 offset은 `IndexOutOfBoundsException`. `Int.MIN_VALUE`/`Int.MAX_VALUE`도 안전하게 거부합니다. 자동 패딩, signed 변환, 스케일 변환, 프로토콜 검증은 하지 않습니다. 동시 배열 변경에 대한 스냅샷은 제공하지 않습니다.
+
+```kotlin
+import com.kjj.extension.value.parseByteHexLog
+import com.kjj.extension.value.readUInt16
+import java.nio.ByteOrder
+
+val packet = "0x99 0x34 0x12 0xff 0xff".parseByteHexLog()
+check(packet.readUInt16(1) == 4660)
+check(packet.readUInt16(1, ByteOrder.BIG_ENDIAN) == 13330)
+check(packet.readUInt16(3) == 65535)
+check(byteArrayOf(0x34, 0x12).readUInt16() == 4660)
+```
+
+예제의 필드 값은 단위 테스트에 포함합니다. 전체 65,536개 값의 양쪽 엔디언, 경계 offset, 원본 불변성도 테스트합니다. 오프라인 Gradle 실행 결과와 제약은 PR 검증 결과를 참조하세요(테스트 코드를 추가한 것과 실행 성공은 별개입니다).
