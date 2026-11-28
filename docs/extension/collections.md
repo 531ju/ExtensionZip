@@ -50,3 +50,23 @@ check(repeated.toList() == listOf("b", "a"))
 ```
 
 위 예제의 결과는 단위 테스트로 검증합니다. 빈 입력과 중복 없는 입력은 빈 집합이며 null 키도 정상 처리합니다. 키 비교는 `equals`/`hashCode`를 사용하므로 순회 도중 키를 변경하지 마세요. selector 예외는 그대로 전달합니다. 원본은 변경하지 않으며 평균 시간 O(n), 공간 O(k) (서로 다른 키 수)입니다. 무한 입력에는 사용하지 마세요.
+
+## 중복 없는 키로 맵 만들기: Iterable.associateByUnique()
+
+사용자 ID 등으로 조회용 맵을 만들면서 중복 식별자를 즉시 거부할 때 사용합니다. 표준 `associateBy`는 같은 키의 마지막 원소로 덮어쓰지만, `associateByUnique`는 첫 중복 키에서 `IllegalArgumentException`을 던집니다. `duplicateKeysBy`는 전체 입력을 순회해 중복 키 집합을 반환하며 기존 동작을 유지합니다.
+
+```kotlin
+import com.kjj.extension.value.associateByUnique
+
+val byLength = listOf("bbb", "a", "cc").associateByUnique { it.length }
+check(byLength.keys.toList() == listOf(3, 1, 2))
+check(byLength[1] == "a")
+// listOf("a", "b").associateByUnique { it.length } // IllegalArgumentException
+```
+
+- API: `fun <T, K> Iterable<T>.associateByUnique(keySelector: (T) -> K): Map<K, T>`
+- 수신 객체: 유한한 `Iterable<T>`. 단일 순회하며 `keySelector`는 방문한 원소마다 정확히 한 번 호출됩니다. 첫 중복 이후의 원소는 읽지 않습니다.
+- 반환: 입력 순서를 유지하는 새 맵. 빈 입력은 빈 맵이며, 원본과 원소 객체는 변경하지 않습니다. 반환 타입은 읽기 전용 `Map`이며 불변 컬렉션을 보장하지 않습니다.
+- null 키와 null 원소(맵 값)를 지원합니다. null 키도 중복 검사하며, 기존 값이 null이어도 `containsKey`로 중복을 감지합니다. 예외 메시지에는 중복 키 값을 포함하지 않습니다.
+- 키 비교는 `equals`/`hashCode`를 사용하므로 순회 도중 키를 변경하지 마세요. `keySelector` 예외는 그대로 전달합니다. 평균 시간 O(n), 추가 공간 O(k) (방문한 서로 다른 키 수)입니다. 무한 입력에는 사용하지 마세요.
+- 별도 라이브러리·Android 권한이나 메인 스레드가 필요하지 않습니다.
